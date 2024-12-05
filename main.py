@@ -1,14 +1,40 @@
 def main():
     book_path = input("Enter the path to the book: ")
     text = get_book_text(book_path)
+    #Calculations
     word_count = get_word_count(text)
     word_list = get_word_list(text)
-    print(f"{word_count} words found in the document")
-    print(word_list)
+    word_list_tuples = list(word_list.items())
     alphabetic_characters, non_alphabetic_characters = get_character_count(text)
     sorted_alphabetic_characters = dict(sorted(alphabetic_characters.items()))
-    print(sorted_alphabetic_characters)
-    print(non_alphabetic_characters)
+    char_list = list(alphabetic_characters.items())
+    sorted_char_list = (sorted(char_list, key=lambda x: x[1], reverse=True))
+    sorted_word_list = (sorted(word_list_tuples, key=lambda x: x[1], reverse=True))
+    # Printing Reports
+
+    with open('report.txt', 'w') as file:
+        with open('report.txt', 'w') as file:
+            file.write('--- Begin report of your document ---\n')
+            file.write(f'{word_count} words found in the document\n')
+    
+            for word, count in sorted_word_list:
+                file.write(f"The word '{word}' occurs {count} times in the document\n")
+        
+            file.write('--- End report ---\n')
+
+    print("--- Begin report of your document ---")
+    print(f"{word_count} words found in the document")
+    for char, count in sorted_char_list:
+        print(f"The '{char}' character was found {count} times")
+    for word, count in sorted_word_list:
+         print(f"The word '{word}' was found {count} times")
+    print("--- End report ---")
+    print(f"Non-alphabetic characters: {non_alphabetic_characters}")
+    print(f"Word list: {sorted_word_list}")
+  
+    #print(sorted_alphabetic_characters)
+    #print(non_alphabetic_characters)
+  
 
 def get_word_count(text):
      words = text.split()
